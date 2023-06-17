@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Sistema de Gestão de Pessoas</title>
+
+
+        
+
+
+</head>
+<body>
+
+<h1>Pessoas</h1>
+<div>
+</div>
+	<div class="container my-2">
+		<h2>Editar Pessoa</h2>
+		<form action="#" th:action="@{/rh/pessoas/salvar}" th:object="${pessoa}" method="POST">
+			<input type="hidden" id="id" th:field="*{id}">
+			
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
+			<input type="text" th:field="*{nome}" placeholder="Nome" class="form-control mb-4 col-4">
+      		<input type="date" th:field="*{dataNascimento}" placeholder="Data Nascimento" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="text-danger"></span>
+      		<input type="text" th:field="*{cpf}" placeholder="CPF" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+			<input type="text" th:field="*{email}" placeholder="Email" class="form-control mb-4 col-4">
+      		<input type="text" th:field="*{telefone}" placeholder="Telefone" class="form-control mb-4 col-4">
+      		
+		 <select th:field= "*{cidade}" class="form-control mb-4 col-4" > 
+		 <option value="">Cidade </option>
+		 <option th:each="cidade: ${cidades}" th:value="${cidade.id}" th:text="${cidade.nome} + ' (' + ${cidade.uf} + ')'"  ></option>
+		  </select>
+			
+			<select th:field= "*{departamento}" class="form-control mb-4 col-4" > 
+		 <option value="">Departamento </option>
+		 <option th:each="departamento: ${departamentos}" th:value="${departamento.id}" th:text="${departamento.nome} + ' (' + ${departamento.sigla} + ')'"  ></option>
+		  </select>
+				
+			
+			<button type="submit" class="btn btn-info col-2">Salvar</button>
+		</form>
+		<hr>
+		<a th:href="@{/rh/pessoas}">Retornar para a lista de pessoas</a>
+	</div>
+</body>
+</html>
